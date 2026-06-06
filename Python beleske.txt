@@ -1,0 +1,1197 @@
+
+biblioteke: NumPy, Matplotlib, Tkinter 
+NumPy je temelj naučnog računanja u Pythonu. Omogućava rad sa velikim nizovima i matricama i mnogo je brži od običnih Python listi zahvaljujući implementaciji u C-u. Skoro svaka biblioteka za data science (Pandas, TensorFlow itd.) koristi NumPy ispod haube.
+Matplotlib je standardna biblioteka za crtanje grafova. Možeš praviti linijske grafove, stubičaste dijagrame, pie chart-ove, scatter plot-ove i 3D vizualizacije. Često se koristi zajedno sa NumPy-em — NumPy obradi podatke, Matplotlib ih prikaže.
+Tkinter je jedina od ove tri koja dolazi ugrađena uz Python, pa je ne moraš instalirati. Koristi se za pravljenje desktop aplikacija sa grafičkim interfejsom — prozori, dugmad, polja za unos teksta, meniji i slično. Nije najpopularnija za moderne aplikacije, ali je odlična za učenje.
+
+
+U pajtonu se radi implicintna konverzija tipova podataka tj. kada se definise varijabla ne mora da se definise tip podatka.
+integer_num = 10    # Type is int
+float_num = 5.5     # Type is float
+
+# Python implicitly converts integer_num to 10.0 before addition
+result = integer_num + float_num 
+
+
+
+Redosled izvrsavanja racunskih operacija: PEMDAS
+Parentheses, Exponents, Multiplication/Division, Addition/Subtraction
+
+provera tipa podatka sa type() vraca <class 'str'> <class 'int'> <class 'float'> and <class 'bool'>
+print(type("abc"))
+
+
+# ako zelimo da uradimo print vise razlicitih tipova podataka mozemo sve da ih dodamo u jedan string unutar ""
+# za to se koristi f-string
+# ispred navodnika se doda f a varijable se stave u {}
+score = 0
+height = 1.8
+is_winning = True
+
+# Your score is = 0. Height is 1.8. is_winning is True
+print(f"Your score is = {score}. Height is {height}. is_winning is {is_winning}")
+
+---------------------------------------- modul ---------------------------------------------
+Ako je kod veliki mozemo da ga podelimo u module tj. u razlicite fajlove. Kada modul zelimo da koristimo mora da se importuje.
+
+Ovde kreiramo fajl my_module.py i u njemu je samo jedna linija
+------------- my_module.py - pocetak -------------
+my_favorite_number = 3.1415
+------------- my_module.py - kraj -------------
+
+Sada se my_module importuje i koristi se kod koji je u njemu.
+------------- task.py - pocetak -------------
+import random
+import my_module # uvozi se modul koji smo kreirali
+
+random_int = random.randint(1, 10)
+print(random_int)
+print(my_module.my_favorite_number)
+------------- task.py - kraj -------------
+
+
+---------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------ Randomisation ------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------
+U pythonu za random brojeve se koristi Random modul. Da bi se ovan modul koristio mora da se importuje sa 'import random'.
+Dokumentacija: https://docs.python.org/3/library/random.html
+
+import random
+random.randint(1, 10) - vraca random int od 1 do 10 ukljucujuci i 1 i 10
+random.random() * 10 - vraca float u rasponu od 0 do 1. Moze da bude 0 ali ne moze da bude 1. Broj koji vraca je uvek manji od 1.0
+random.uniform(1, 10) - vraca float ukljucujuci 0.0 i 1.0
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------- Liste ----------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------
+U pythonu lista sadrzi elemente koji su u []. Lista moze sadrzati elemente koji su razlicitih tipova.
+Kada se lista kreira u nju se dodaju elementi i oni zadrzavaju redosled po kojem se dodaju.
+Do elementa liste moze da se dodje po indeksu.
+
+lista = [3, 5, 2, 4]
+lista = [True, 5, 'a', 4]
+for i in lista:
+    print(i)
+	
+- ako se koristi funkcija sort() nad listom ona ce promeniti tu listu i nakon poziva sort() pozicije elemenata u listi ce biti promenjene
+states_of_america = ["Delaware", "Pennsylvania", "Texas"]
+states_of_america.sort(key=len, reverse=True)  
+for i in states_of_america:
+    print(i)
+
+- ako su u listi razliciti tipovi podataka sort() ne moze da se koristi
+- sort() menja postojecu listu a ne radi return pa rezultat ne moze da se snimi u novu listu
+- ako zelimo novu listu onda se korisit sorted()
+new_list = sorted(states_of_america)
+
+
+states_of_america = ["Delaware", "Pennsylvania", "New Jersey", "Georgia", "Connecticut", "Massachusetts", "Maryland", "South Carolina", "New Hampshire", "Virginia"]
+states_of_america[2] = "BBBBBBBB" # promena vrednosti elementa u listi
+states_of_america.sort(key=str.lower)
+states_of_america[3] = "AAAAAAAA" # ako se element menja nakon sort() vrednost nece biti ukljucena u sortiranje. Ovo bi po sort() trebalo da bude na pocetku ali nece biti
+
+states_of_america.append("XXXXXXXXXXXX") # dodavanje elementa na kraj liste
+states_of_america.extend(["YYY", "ZZZ"]) # dodavanje vise elemenata na kraj liste
+
+for i in states_of_america:
+    print(f"{states_of_america.index(i)+1}. item: {i}")
+    print()
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------- Loops ----------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------
+ovo je forEach() petlja u python-u
+fruits = ["Apple", "Peach", "Pear"]
+for fruit in fruits:
+    print(fruit)
+	
+print(fruits)
+
+Ako nam treba i redni broj iteracije onda moze da se koristi enumerate()
+for i, fruit in enumerate(fruits):
+    print(f"i: {i}; fruit: {fruit}")
+
+Ako brojanje iteracije ne treba da pocinje od 0 onda se dodaje start parametar. Ovde ce u brvoj iteraciji biti i=10
+for i, fruit in enumerate(fruits, start=10):
+    print(f"i: {i}; fruit: {fruit}")
+
+
+student_scores = [150, 142, 185, 120, 171, 184, 149, 24, 59, 68, 199, 78, 65, 89, 86, 55, 91, 64, 89]
+
+sum_fun_result = sum(student_scores)
+min_fun_result = min(student_scores)
+max_fun_result = max(student_scores)
+
+total = 0
+min_value = student_scores[0]
+max_value = student_scores[0]
+for value in student_scores:
+    total += value
+    if value < min_value:
+        min_value = value
+    if value > max_value:
+        max_value = value
+
+print(f"for loop total: {total}")
+print(f"total_sum_fun: {sum_fun_result}")
+
+print(f"for loop min_value: {min_value}")
+print(f"min_fun_result: {min_fun_result}")
+
+print(f"for loop max_value: {max_value}")
+print(f"max_fun_result: {max_fun_result}")
+
+
+
+# range() se koristi u for loop petlji i nju koristiomo da u for petlji imamo zeljeni broj iteracija
+# range(1, 10) ce iterirati 9 puta i dace na vrednosti od 1 do 9. Vrednost koju nam da mozemo da iskoristimo da iz liste uzmemo element po indeksu
+# kada se koristi range() korak je po defaultu 1 a ako zelimo da bude drugaciji onda se on definise kao treci parametar
+# range(1, 100, 3) ovde cemo imati iteraciju od 1 do 99 sa koracima od 3: 1, 4, 7, 10...
+
+
+# ovo ce iterirati od 1 do 100 (ukljucujuci i 100) i kreirace sumu brojeva od 1 do 100
+# total = 1+2+3+4+.....+97+98+99+100 = 5050
+total = 0
+for i in range(1, 101):
+    total += i
+print(total)
+
+# ovo isto kreira sumu brojeva od 1 do 100 ali u duplo manje iteracija
+# ako uzmemo listu od 1 do 100 i podelimo je na pola i obrnemo redosled druge polovine imamo
+# 1   2   3   4   5 ...
+# 100 99  98  97  96...
+# sabiraju se 1 i 100, pa 2 i 99 i tako iamamo 50 parova/iteracija
+total = 0
+for i in range(1, 51):
+    total += i + (101 - i)
+print(total)
+
+
+- zadatak za password koji kombinuje loop, liste i random - pocetak
+# zadatak je da se kreira password od random karaktera. Korisnik odredjuje koliko  zeli slova, koliko brojeva i koliko specijalnih karaktera
+# slova, brojevi i karakteri se random uzimaju iz listi a onda se random redjaju u password
+import random
+
+letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
+
+print("Welcome to the PyPassword Generator!")
+nr_letters = int(input("How many letters would you like in your password?\n"))
+nr_symbols = int(input(f"How many symbols would you like?\n"))
+nr_numbers = int(input(f"How many numbers would you like?\n"))
+
+password = ""
+letters_list  = []
+numbers_list  = []
+symbols_list  = []
+password_length = nr_letters + nr_symbols + nr_numbers
+
+for t in range(0, nr_letters):
+    letters_list.append(letters[random.randint(0, len(letters) - 1)])
+
+for t in range(0, nr_numbers):
+    numbers_list.append(numbers[random.randint(0, len(numbers) - 1)])
+
+for t in range(0, nr_symbols):
+    symbols_list.append(symbols[random.randint(0, len(symbols) - 1)])
+
+all_list = [letters_list, symbols_list, numbers_list]
+print(all_list)
+
+# dok je duzina password-a manja od zeljene while petlja ce se vrteti
+# posto su elementi u liste letters_list, symbols_list i numbers_list dodati sa random onda moze da se uzima uvek prvi element iz liste sa pop(0)
+while len(password) < password_length:
+
+    # da bi u passwor bila izmesan sloba, brojevi i simpoli sa random se odlucuje iz koje ce se liste uzeti element za password
+    l = random.randint(0, len(all_list)-1)
+    if len(all_list[l]) > 0:
+        #print(f"all_list[e].pop(0): {all_list[e].pop(0)}")
+        password += all_list[l].pop(0)
+
+print(f"final password: {password}")
+- zadatak za password koji kombinuje loop, liste i random - kraj
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------- Functions --------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------
+Funkcija se definise sa kljucnom reci def.
+Posle def se setuje ime funkcije a telo funkcije je uvuceno za tab.
+Identacija je 4 space-a. Treba da se koristi space a ne tab.
+U pyCharm-u (i vecini editora) je podeseno da kada se pritisne tab on unese 4 space-a.
+
+def my_function():
+    print("Hello")
+
+my_function() # poziv funkcije
+
+Kada se definise funkcija definise se parametar a kada se prosledjuje podatak u funkciju onda je to argument.
+
+Kada se u funkciju prosledjuje vise argumenata onda moramo da pazimo na redosled kako su definisani u definiciji funkcije. Ako zelimo da promenimo redosled prilikom prosledjivanja onda mozemo da ih imenujemo i funkcija ce znati koji argument je za koji parametar. Ovo je "Keyword Arguments".
+
+# Functions with more than 1 input
+def greet_with(name, location):     			-- ovde je definisano name, location
+    print(f"Hello {name}")
+    print(f"What is it like in {location}")
+
+# Positional arguments
+# greet_with("Jack Bauer", "Nowhere")
+# greet_with("Nowhere", "Jack Bauer")
+
+# Keyword arguments
+greet_with(location="London", name="Angela") - moze da se prosledi prvo lokacija ali prosledjujemo i ime parametra - "Keyword Arguments"
+
+U pajtonu se u funkciju kao parameter moze proslediti neka druga funkcija. Ona funkcija koja kao parametar prihvata drugu funkciju je funkcija viseg reda.U pajtonu se u funkciju kao parameter moze proslediti neka druga funkcija. Ona funkcija koja kao parametar prihvata drugu funkciju je funkcija viseg reda.
+
+--------------------------- *args ---------------------------
+*args moze da se koristi kada definisemo funkciju tako da moze da joj se prosledi bilo koji broj argumenata.
+def add(*args):
+	for n in args:
+		print(n)
+Ovako u funkciju moze da se prosledi bilo koji broj elemenata i funkcija ce ih sve obraditi. Moze da se prosledi add(2), add(2, 5) ili add(2, 8, 7, 7, 8, 9) i funkcija ce raditi.
+*args je po konvenciji i ne mora da bude tako ali * je obavezan.
+Kada se *args prosledi u funkciju on je tuple i kroz njega moze da se iterira.
+
+--------------------------- *kwargs ---------------------------
+**kwargs - key word arguments
+**kwargs - nam omogucava da definisemo funkciju u koju moze biti prosledjen proizvoljan broj parametara i oni s eprosledjuju u key:value parovima. Ono sto se prosledi u funkciju je dictionary.
+
+
+def calculate(num, **kwargs):
+    # print(kwargs) # {'add': 3, 'multiply': 5}
+    result = 0
+    for key, value in kwargs.items():
+        if key == "add":
+            result += num + value
+            break
+        if key == "multiply":
+            result += num * value
+            break
+    return result
+
+# kada se pozove funkcija ona ce prolaziti kroz parametre i kada naice na ime parametra add sabrace 5 i 3 a kada naideje na multiply pomnozice 5 i 5
+print(calculate(5, add=3, multiply=5))
+
+
+---------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------ Dictionaries -------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------
+Dictionary je kolekcija podataka (mapa) u kojoj se podaci cuvaju u key:value parovima.
+Key mora da bude jedinstven i moze da bude string ili broj. Vrednostima se pristupa preko key
+
+U jedno dictionary kljucevi mogu biti razliciog tipa. U jednom dictionary mozemo imati kljuceve koji su int i string.
+Vrednosti u dictionary mogu biti razlicitih tipova. Kao vrednost moze da bude i lista i dictionary.
+
+osoba = {
+    "ime": "Marko",
+    "grad": "Beograd"
+}
+
+uzimanje vrednosti
+print(osoba["ime"])  # Marko
+
+dodavanje vrednosti ili promena
+osoba["telefon"] = "061123456" - dodavanje
+osoba["ime"] = "Pera"
+
+iteracija kroz dictionary
+for kljuc, vrednost in osoba.items():
+    print(kljuc, vrednost) 
+	
+kada se radi ovako iteracija iterira se kroz kljuceve
+for i in osoba:
+    print(i) # kljuc
+	print(osoba[i])
+	
+Kada definisemo dictiooinary definisemo objekat tipa dict a ne objekat koji je instanca neke klase koju smo mi definisali.
+print(type(osoba))  # <class 'dict'>
+
+Nasa klasa bi bila:
+class Osoba:
+    def __init__(self, ime, godine, grad):
+        self.ime = ime
+        self.godine = godine
+        self.grad = grad
+
+o = Osoba("Marko", 30, "Beograd")
+
+definisanje praznog dictionary
+osoba = {}
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------- Docstrings --------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------
+Docstrings je nacin da se dokumentacija doda u kod. Ovde moze da se napise komentar sta neki deo koda radi i kada neko koristi taj kod moze da pogleda dokumentaciju.
+Kada se napise neka funkcija u nju se doda Docstrings. Kada se ta funkcija pozove onda sa STRL+levi klik na poziv funkcije korisniku se prikaze definicija funkcije i tu je i Docstrings.
+Docstrings se dodaje sa tri para navodnika i to mora da bude u prvoj liniji nakon def kada se definise funklcija. 
+Tekst za Docstrings moze da bude u vise redova ali moraju da budu izmedju """  """.
+
+def format_name(f_name, l_name):
+    """Take a first and last name and format it to return the
+    title case version of the name."""
+    formated_f_name = f_name.title()
+    formated_l_name = l_name.title()
+    return f"{formated_f_name} {formated_l_name}"
+
+
+formatted_name = format_name("AnGeLa", "YU")
+
+length = len(formatted_name)
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------- referenca ka funkciji --------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------
+U pythonu mozemo da u varijabli setujemo referencu ka nekoj funkciji i da se ta referenca koristi da pozovemo funkciju.
+
+definicija funkcije
+def add(a, b)
+	return a + b
+
+poziv funkcije
+add(2, 3)
+	
+snimanje reference u varijablu - kada se ovo radi ne pise se ()
+moja_funkcija = add
+
+sada funkcija moze da se pozove i ovako
+moja_funkcija(2, 3)
+
+U ovom dole primeru se kreiraju 4 funkcije i dodaju se u dictionary kao reference koje su u value a key je matematicka operacija. Kasnije se iz dictionary uzima value tj. referenca ka funkciji i poziva se ta funkcija.
+def add(n1, n2):
+    return n1 + n2
+
+def subtract(n1, n2):
+    return n1 - n2
+
+def multiply(n1, n2):
+    return n1 * n2
+
+def divide(n1, n2):
+    return n1 / n2
+
+operations = {
+    "+": add,
+    "-": subtract,
+    "*": multiply,
+    "/": divide,
+}
+
+# ovo dole je isto sto i add(2, 5)
+print(operations["+"](2, 5)) # print 7
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------- Namespaces --------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------
+Namespace je kada imenujemo varijablu ili funkciju koju kreiramo
+
+Local scope - kada je varijabla definisana/kreirana unutar funkcije njen scope je samo unutar te funkcije i izvan funkcije ne postoji.
+
+# Local Scope
+def drink_potion():
+    potion_strength = 2
+    print(potion_strength)
+
+drink_potion()
+# Can't access this potion_strength outside of its scope
+print(potion_strength) - ovo ce biti error jer je potion_strength kreirana unutar funkcije i izvan nje ne postoji
+
+# Global Scope
+player_health = 10
+
+def game():
+    def drink_potion():
+        potion_strength = 2
+        print(player_health) - ovde moze da se radi print varijable player_health jer je definisana u globalnom scope-u
+
+drink_potion() - ova funkcija ne moze da se pozove jer je definisana unutar local scope funkcije game()
+
+print(player_health)
+
+
+------------------ Block Scope ------------------
+U python-u ne postoji Block Scope kao sto postoji u javi.
+
+Java
+if (game_level <5) {
+	enemy = "X;
+}
+
+Syste.print.line(enemy) - ovo bi u javi bio error jer je varijabla enemy definisana unutar bloka {} pa je u local scope tog bloka
+
+Python
+if game_level <5:
+	enemy = "X
+
+print(enemy) - u pythonu ovo nije error jer varijable kreirana unutar bloka koda (if, for loop, while loop) nije local scope pa je dostupna i izvan njega
+Ako je varijabla definisana unutar definicije funkcije onda je to local scope.
+
+
+------------------ Global Scope ------------------
+Ako neku varijablu koja je definisana u globalnom scope zelimo da promenimo unutar funkcije (local scope) onda u funkciji ispred nje mora da se doda 'global'. ako ne dodamo 'global enemies' onda je enemies varijabla koja se kreira u lokalnom scope-u funkcije.
+
+enemies = 1
+def increase_enemies():
+    global enemies
+    enemies += 1
+    print(f"enemies inside function: {enemies}")
+
+increase_enemies()
+print(f"enemies outside function: {enemies}")
+
+
+enemies = 1
+def increase_enemies():
+    enemies = 1 - ovo je local scope enemies - ovde se kreira local scope enemies
+    print(f"enemies inside function: {enemies}")
+	
+enemies = 1
+def increase_enemies():
+    enemies += 1 - ovo bi bio error jer enemies nije ni kreirana
+    print(f"enemies inside function: {enemies}")
+
+Ako ne zelimo da dodajemo 'global' u funkciju onda varijabla moze da se prosledi u funkciju, da se u njoj promeni i da se sa return vrati i vrednost snimi u pocetnu varijablu.
+enemies = 1
+def increase_enemies(e):
+    e += 1
+	return e
+	
+enemies = increase_enemies(enemies)
+
+Nije dobra praksa da se varijable definisu u globalnom skoupu. Pozeljno je da se vrednosti prosledjuju funkcijama i da funkcije vracaju vrednosti.
+Dobra praksa je da se u globalnom skoupu definisu konstante jer se njihove vrednosti nece menjati.
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------- Dodavanje paketa u projekatu -----------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------
+Kada nam je potreban neki paket (biblioteka) za projekat on moze da se instalira i nakon toga importuje i koristi.
+Kao primer za projekat cemo instalirati paket PrettyTable.
+Paketi mogu da se pretrazuju na https://pypi.org/. Ovde se nalazi i dokumentacija.
+
+Jedan nacin je da se instalira u PyCharm:
+1. File -> Settings -> Python -> Interpreter
+2. klik na + i u search polju se ukuca paket koji nam treba
+3. odabere se zeljena verzija pa 'Install Package' -> Close -> OK
+4. nakon ovoga ce se paket instalirati tj. skinuce se py fajl u kome je kod za ovaj paket
+5. import prettytable - da se paket importuje
+
+Dokumentacija za PrettyTable: https://pypi.org/project/prettytable/
+from prettytable import PrettyTable
+
+from prettytable import PrettyTable
+
+table = PrettyTable()
+imena = ["Pera", "Mika", "Zika"]
+adrese = ["Perina ulica", "Mikina ulica", "Zikina ulica"]
+table.add_column("ime osobe", imena)
+table.add_column("adresa na kojoj stanuje", adrese)
+# table.align["ime osobe"] = "l"
+# table.align["adresa na kojoj stanuje"] = "r"
+# sve kolone se ravnaju levo
+table.align = "l"
+
+print(table)
++-----------+-------------------------+
+| ime osobe | adresa na kojoj stanuje |
++-----------+-------------------------+
+| Pera      | Perina ulica            |
+| Mika      | Mikina ulica            |
+| Zika      | Zikina ulica            |
++-----------+-------------------------+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------- Object Oriented Programming -----------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------
+Kada se kreira klasa za neki objekat gleda se koje osobine i sta radi. Osobine ce biti property/attributes i u njima se cuva stanje a sta radi ce biti metode.
+Atributi su varijable a metode su funkcije.
+Za vezbanje se koriti turtle biblioteka koja je ukljucena u python.
+
+from turtle import Turtle - sa ovime se importuje klasa Turtle iz biblioteke 
+timmy = Turtle() - instancira se objekat klase Turtle
+print(timmy) 
+
+
+Kreiranje klase. Ime klase se pise u PascalCase.
+Konstruktor se kreira sa __init__
+class ImeClase:
+	a = 0
+	b = 1
+
+
+Kada se instancira objekat klase mozemo da dodajemo atribute ali tada postoji mogucnost za gresku.
+class User:
+    name = ""
+    email = ""
+    password = ""
+
+user_1 = User()
+user_1.id = "001"
+user_1.username = "pera"
+
+user_2 = User()
+user_2.id = "001"
+user_2.name = "pera" - nije username nego name
+
+
+--------------------------------------------
+kada se kreira metoda klase kao prvi parametar mora da bude self
+class User:
+    def __init__(self, user_id, username, followers):
+        self.id = user_id
+        self.username = username
+        self.followers = 0 # ovako se setuje default vrednost
+        self.following = 0
+        print("New user created...") # __init__ funkcija/konstruktor se poziva svaki put kada se instancira objekat klase pa ce i ovaj print svaki put biti izvrsen
+
+    # kada se kreira metoda klase kao prvi parametar mora da bude self
+    # objektu user koji se prosledi povecava broj followers
+    def follow(self, user):
+        user.followers += 1
+        self.following += 1
+
+user_1 = User("001", "pera password", None)
+print(user_1.id)
+print(user_1.username)
+print(user_1.followers)
+
+*************************************************************************
+********************************* VAZNO *********************************
+*************************************************************************
+Kada se definise klasa atributi trebaju da se definisu samo unutar konstruktora. Ako se atribut definise izvan konstruktora onda taj atribut dele sve instance klase pa sve instance mogu i da ga menjaju. Ako nam ovo treba onda tako treba raditi.
+Kada se atribut definise i  inicijalizuje unutar konstruktora to se radi sa self. pa je taj atribut vezan samo za tu instancu klase.
+Ako atribut pripada instanci → self. u __init__. Class-level atribute koristi samo kada svesno želiš deljeno stanje.
+class Question:
+    counter = 0 # ovaj podatak mogu da menjaju sve instance Question klase
+    
+    def __init__(self, q_text, q_answer):
+        self.text = q_text
+        self.answer = q_answer
+*************************************************************************
+********************************* VAZNO *********************************
+*************************************************************************
+
+
+
+---------------------------------------------------------------------------------------------------------------------------
+--------------------------------------- Instances, States and Higer Order Functions ---------------------------------------
+---------------------------------------------------------------------------------------------------------------------------
+U pajtonu se u funkciju kao parameter moze proslediti neka druga funkcija. Ona funkcija koja kao parametar prihvata drugu funkciju je funkcija viseg reda.
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------- Nasledjivanje klasa ---------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------
+Nasledjivanjem klasa dobijamo to da klasa (npr. klasa B) koja nesledjuje neku klasu (klasa A) od nje preuzima (nasledjuje) atribute i metode i moze da ih koristi.
+Klasa koja nasledjuje moze da se prosiri sa dodatnim atributima i metodama.
+
+Imamo primer klase Animal i da nju nasledjuje klasa Fish. Za klasu koju kreiramo u zagradi navodimo klasu koju nasledjuje a u konstruktoru se dodaje super().__init__(). Ovo super referencira superklasu tj. klasu koju nasledjuje.
+class Animal:
+	def __init__(self, name):
+		self.name = name
+		self.num_eyes = 2
+	
+	def get_name():
+		print(f"Print iz Animal klase {self.name}")
+		
+class Fish(Animal):
+	def __init__(self):
+		super().__init__()
+	
+	# ako zelimmo da modifikujemo metodu iz superklase onda se prvo sa super().get_name() referencira metoda iz superklase a nako toga se modifikuje
+	# kada se pozove ova metoda uradice se print dva reda. Jedan iz metode iz superklase a drugi iz metode iz Fish klase
+	def get_name():
+		super().get_name()
+		print(f"Print iz Fish klase {self.name}")
+
+Instancira se objekat Fish klase a posto Fish klasa nasledjuje Animal klasu onda ce nemo objekat imati atribut num_eyes.
+nemo = Fish()
+nemo.num_eyes
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------- Slice Lists & Tuples ---------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------
+Slice sluzi da se iz liste uzme odredjeni deo elemenata. Kao parametri se prosledjuje podatak od kogje do koje pozicije se uzimaju elementi.
+Kada se prosledjuje pozicija onda je to pozicija izmedju elemenata gde se pocinje sa uzimanjem i gde se zavrsava.
+Najboje je vizuelizovati tako sto se zamisli da je to pozicija izmedju elemenata gde se sece lista. Ako je 0 onda je to pozicija ispred prvog elementa.
+Ako zelimo da uzmemo elemente od neke pozicije pa sve do kraja liste onda drugi parametar ne treba da se prosledi.
+Isto je i u obrnutom smeru.
+
+piano_keys = ["a", "b", "c", "d", "e", "f", "g"]
+			 |    |    |    |    |    |    |   |
+			 0    1    2    3    4    5    6   7
+print(piano_keys[2:5])  => "c", "d", "e"
+print(piano_keys[0:3])  => "a", "b", "c"
+print(piano_keys[0:7])  => "a", "b", "c", "d", "e", "f", "g"
+
+kada se ne prosledi drugi parametar uzimaju se svi elementi do kraja.
+print(piano_keys[2:])  => "c", "d", "e", "f", "g"
+
+u obrnutom smeru je:
+print(piano_keys[:3])  => "a", "b", "c"
+
+Ako se prosledi i treci parametar onda to odredjuje inkrement.
+Slice krece od pozicije 2 ide do pozicije 7 i uzima svaki drugi element
+print(piano_keys[2:7:2])  => "c", "e", "g"
+
+Ovako se iz cele liste uzima svaki drugi element
+print(piano_keys[::2])  => "a", "c", "e", "g"
+
+Ovako se radi reverse liste. Posto je inkrement 1 uzima svaki element ali posto je -1 krece od kraja pa vraca listu elemenata u obrnutom redosledu.
+print(piano_keys[::-1])  => "g", "f", "e", "d", "c", "b", "a"
+
+Ovo moze da se koristi i za tuple. Kako se slice koristi za liste isto tako se koristi za tuple.
+piano_tuple = ("do", "re", "mi", "fa", "so", "la", "si")
+print(piano_tuple[::-1]) => ("si", "la", "so", "fa", "mi", "re", "do")
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------- Files, Directories and Paths -----------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------
+Za citanje fajla se koristi build-im metoda open(). Kada se fajl otvori moramo da se setimo i d aga zatvorimo da bi oslobodili resurse racunara.
+file = open("my_file.txt")
+content = file.read()
+print(content)
+file.close()
+
+Da ne bi morali da pamtimo da trebamo da zatvorimo fajl moze da se koristi "with open("my_file.txt") as f:" i kada se zavrsi izvrsavanje koda fajl ce se automatski zatvoriti.
+Kljucna rec with automatski zatvara fajl kada zavrsi sa njim.
+with open("my_file.txt") as f:
+    print(f.read())
+	
+Da bi se u fajl upisalo nesto mora da se doda parametar mode="w" ili mode="a". Ako se ne doda parametar onda je po defaultu samo read.
+with open("my_file.txt", mode="w") as f:
+    f.write("DDDDDDDDD")
+
+Ako fajl ne postoji i koristi se write ili append mod onda ce ga python kreirati.
+Ako se koristi write onda ce sve izbrisati iz fajla i upisati samo podatak "DDDDDDDDD".
+
+Ako zelimo da dodamo tekst onda se koristi append mod i pre novog teksta se doda \n da bi kursor presao u novi red.
+with open("my_file.txt", mode="a") as f:
+    f.write("\nDDDDDDDDD")
+
+
+with moze da se koristi i u konstruktoru i da se pri instanciranju objekta procita fajl:
+class Scoreboard(Turtle):
+    def __init__(self, SCREEN_WIDTH):
+        super().__init__()
+        self.score = 0
+        with open("data.txt") as data:
+            self.high_score = int(data.read())
+        self.screen_width = SCREEN_WIDTH
+        self.color("white")
+        self.penup()
+        self.goto(0, self.screen_width // 2 - 25)
+        self.update_scoreboard()
+        self.hideturtle()
+
+--------------- Paths ---------------
+Absolute File path je putanja kroz foldere sa imenom fajla na kraju ukljucujuci i ime fajla.
+Absolute File path krece od root foldera (C: ...). To je root folder sistema u kompjuteru.
+
+Folder projekta je "Working directory" i to je relative file path i koristi se sa ./ - kada imamo neki_fajl.txt u folderu gde je i main.py do njega dolazimo sa ./neki_fajl.txt.
+Ako zelimo da izadjemo iz foldera projekta onda s eto radi sa ../
+
+readlines() - ova metoda prolazi kroz fajl, prolazi kroz redova i vraca listu u kojoj je svaki red jedan element liste. Na kraju svakog elementa je \n pa ako se spoje svi elementi dobice se isti sadrzaj kao u fajlu koji je procitan.
+replace("stari tekst", "novi tekst") - replace se koristi za zamenu dela teksta
+strip("  tekst  ") - strip se koristi kao trim(). Odseca space na pocetku i kraju stringa.
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------ Pandas Library -----------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------
+Pandas dokumentacija: https://pandas.pydata.org/docs/
+Pandas API reference: https://pandas.pydata.org/docs/reference/index.html
+
+U python-u postoji default biblioteka koja sluzi za manipulaciju sa csv fajlovima.
+Biblioteka je 'csv' i ona ima metodu reader() koja se koristi da procita podatke iz fajla.
+
+import csv
+with open("weather_data.csv", mode="r") as data_file:
+    data = csv.reader(data_file)
+    temperatures = []
+    for row in data:
+        if row[1] != "temp":
+            temperatures.append(int(row[1]))
+print(temperatures)
+
+Mnogo mocnija biblioteka od csv je Pandas i ona se koristi za analizu podataka i podatke koji su u tabelama. Posto nije ukljucena u python mora da se doda/instalira.
+
+import pandas
+
+data = pandas.read_csv("weather_data.csv")
+print(type(data)) # <class 'pandas.DataFrame'> - u pandas dokumentaciji za pandas.DataFrame pise da je tip tabela
+print(type(data["temp"])) # <class 'pandas.Series'>
+# print(data) # svi podaci
+# print(data["temp"]) # podaci u kolini temp
+# u pandas biblioteci postoje dve vrse podataka: DataFrame i Series. DataFrame je tabela a Series je lista podataka koja je u stvari kolona sa podacima u tabeli
+
+# konvertovanje podataka u dictionary - koristi se pandas metoda to_dict()
+# {'day': {0: 'Monday', 1: 'Tuesday', 2: 'Wednesday', 3: 'Thursday', 4: 'Friday', 5: 'Saturday', 6: 'Sunday'}, 'temp': {0: 12, 1: 14, 2: 15, 3: 14, 4: 21, 5: 22, 6: 24}, 'condition': {0: 'Sunny', 1: 'Rain', 2: 'Rain', 3: 'Cloudy', 4: 'Sunny', 5: 'Sunny', 6: 'Sunny'}}
+data_dict = data.to_dict()
+print(data_dict)
+
+# Series podatak se konveruje u listu
+# [12, 14, 15, 14, 21, 22, 24]
+print(data["temp"].to_list())
+
+
+----------------------------------- day 25 - pocetak -----------------------------------
+import pandas
+from numpy.ma.core import count
+from pandas.core.array_algos.masked_accumulations import cumsum
+
+data = pandas.read_csv("weather_data.csv")
+print(type(data)) # <class 'pandas.DataFrame'> - u pandas dokumentaciji za pandas.DataFrame pise da je tip tabela
+print(type(data["temp"])) # <class 'pandas.Series'>
+# print(data) # svi podaci
+# print(data["temp"]) # podaci u koloni temp
+# u pandas biblioteci postoje dve vrse podataka: DataFrame i Series. DataFrame je tabela a Series je lista podataka koja je u stvari kolona sa podacima u tabeli
+
+# konvertovanje podataka u dictionary - koristi se pandas metoda to_dict()
+# {'day': {0: 'Monday', 1: 'Tuesday', 2: 'Wednesday', 3: 'Thursday', 4: 'Friday', 5: 'Saturday', 6: 'Sunday'}, 'temp': {0: 12, 1: 14, 2: 15, 3: 14, 4: 21, 5: 22, 6: 24}, 'condition': {0: 'Sunny', 1: 'Rain', 2: 'Rain', 3: 'Cloudy', 4: 'Sunny', 5: 'Sunny', 6: 'Sunny'}}
+data_dict = data.to_dict()
+print(data_dict)
+
+# Series podatak se konveruje u listu
+# [12, 14, 15, 14, 21, 22, 24]
+print(data["temp"].to_list())
+
+# izracunavanje prosecne temperature
+avg_temp = sum(data["temp"].to_list()) / len(data["temp"].to_list())
+print(avg_temp)
+# izracunavanje prosecne temperature uz pomoc pandas metoda
+print(data["temp"].mean())
+
+# u pozadini pandas konvertuje tabelu u objekat pa do kolone moze da se dodje kao da je atribut
+# ovo je case sensitive pa mora da se pazi na velika i mala slova
+# isto je kada se kolona uzima sa data["condition"]
+print(data.condition)
+
+print("\n****** uzimanje reda iz tabele ******")
+# ovo bi bilo: select * from data where day = "Monday"
+print(data[data.day == "Monday"])
+
+print("\n****** uzimanje reda sa maksimalnom temperaturom ******")
+print(data[data.temp == data.temp.max()])
+
+print("\n****** uzimanje temp za red sa Monday ******")
+# ceo red se setuje u varijablu monday
+monday = data[data.day == "Monday"]
+# konvertovanje C u F
+print(monday.temp * 9/5 + 32)
+
+
+print("\n****** kreiranje dataframe-a (tabele) ******")
+# kreira se dataframe od podataka koje imamo - od dictionary-a
+data_dict = {
+    "students": ["Amy", "James", "Angela"],
+    "scores": [76, 56, 65]
+}
+# poziva se DataFrame iz pandas biblioteke
+data_from_dict = pandas.DataFrame(data_dict)
+print(data_from_dict)
+# sada tpodatke iz dataframe spustamo u csv fajl
+# index=False - ovaj parametar se koristi da se index ne bi dodao kao prva kolona
+data_from_dict.to_csv("students", index=False)
+----------------------------------- day 25 - kraj -----------------------------------
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------
+------------------------------------------- List and Directories Comprehensions -------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------
+Comprehensions = kraći način da se napiše petlju koja pravi novu kolekciju.
+Ovo radi i sa drugim sekvencama a ne samo sa listama. Moze string, dict itd.
+
+kreiranje nove liste kroz for petlju
+numbers = [1, 2, 3]
+new_list = []
+for n in numbers:
+	new_list.append(n + 1)
+
+kreiranje nove liste koristeci list comprehension
+numbers = [1, 2, 3]
+new_list = [n + 1 for item in numbers]
+
+[] - sa ovime definisemo da je reziltat lista
+"for item in numbers" - ovaj deo je isti kao kod for petlje
+"n + 1" - je element iz liste koji se uzima u for petlji. U prvom kodu (u for petlji) ova vrednost se prosledjuje u append() metodu. Ovo je kod koji se izvrsava (n+1) i prosledjuje u novu listu
+
+numbers = [n*2 for n in range(1, 5)]
+print(numbers) => [2, 4, 6, 8]
+
+
+Uslovno dodavanje elementa u listu. 
+Element ce s efofati u listu samo ako provera (test) bude true.
+new_list = [new_item for item in list if test]
+
+
+even_numbers = [n for n in range(1, 10) if n%2 == 0]
+print(even_numbers) => [[2, 4, 6, 8]
+
+
+########################### List Comprehension ###########################
+numbers = [n*2 for n in range(1, 5)]
+print(numbers)
+
+even_numbers = [n for n in range(1, 10) if n%2 == 0]
+print(even_numbers)
+
+
+########################### Dictionary Comprehension ###########################
+# old_dict je pocetni dictionary
+# {} - sa ovime kreiramo dictionary
+# item - jedan element u old_dict
+# new_key:new_value - sa ovime se uzimaju vrednosti iz old_dict
+# new_dict = {new_key:new_value for item in old_dict}
+
+# ovako se koristi
+# new_dict = {new_key:new_value for (key, value) in dict.items()}
+
+# moze da se koristi i uslov
+# new_dict = {new_key:new_value for (key, value) in dict.items() if test}
+
+# loop kroz listu i kreiranje dictionary
+# dodaje se random score za svako ime iz liste i kreira se dictionary
+names = ["Pera", "Mika", "Zika", "Tika", "Moca", "Peca"]
+
+students_scores = {student: random.randint(1, 100) for student in names}
+print(students_scores) # {'Pera': 67, 'Mika': 4, 'Zika': 79, 'Tika': 93, 'Moca': 52, 'Peca': 7}
+
+
+# loop kroz dict i kreiranje novog dictionary
+# kreira se novi dict koji ce sadrzati samo studente koji su polozili tj. imaju score >= 60
+passed_students = {student:score for (student, score) in students_scores.items() if score >= 60}
+print(passed_students) # {'Pera': 67, 'Zika': 79, 'Tika': 93}
+
+
+sentence = "What is the Airspeed Velocity of an Unladen Swallow?"
+sentence_list = sentence.split(" ")
+result = {word: len(word) for word in sentence_list}
+print(result) # {'What': 4, 'is': 2, 'the': 3, 'Airspeed': 8, 'Velocity': 8, 'of': 2, 'an': 2, 'Unladen': 7, 'Swallow?': 8}
+
+# You are going to use Dictionary Comprehension to create a dictionary called weather_f that takes each temperature in degrees Celsius and converts it into degrees Fahrenheit.
+# To convert temp_c into temp_f use this formula: (temp_c * 9/5) + 32 = temp_f
+weather_c = {"Monday": 12, "Tuesday": 14, "Wednesday": 15, "Thursday": 14, "Friday": 21, "Saturday": 22, "Sunday": 24} 
+weather_f = {day:((temp * 9/5) + 32) for day, temp in weather_c.items()}
+print(weather_f) # {'Monday': 53.6, 'Tuesday': 57.2, 'Wednesday': 59.0, 'Thursday': 57.2, 'Friday': 69.8, 'Saturday': 71.6, 'Sunday': 75.2}
+
+
+############################### iteracija kroz Pandas DataFrame ###############################
+student_dict = {
+    "student": ["Angela", "James", "Lily"],
+    "score": [56, 76, 98]
+}
+
+# iteracija kroz dictionary sa for petljom
+for (key, value) in student_dict.items():
+    print(key)
+    print(value)
+
+# na DataFrame mozemo d agledamo kao na dictionary pa se na isti nacin i iterira kroz DataFrame
+# importuje se pandas da bi se od dict kreirao DataFrame
+import pandas
+
+student_dict = {
+    "student": ["Angela", "James", "Lily"],
+    "score": [56, 76, 98]
+}
+student_data_frame = pandas.DataFrame(student_dict)
+
+# pandas ima svoju metodu za iteraciju kroz podatke (redove) i to je iterrows()
+# ova metoda vraca index reda i red sa svim podacima (i imenima kolona) u tom redu
+# svaki red je serija pandas objekata. Iz tih objekata podatak se uzima sa row.ime_kolone
+for (index, row) in student_data_frame.iterrows():
+    print(f"{row.student}: {row.score}")
+# Angela: 56
+# James: 76
+# Lily: 98
+
+
+
+import pandas
+
+#TODO 1. Create a dictionary in this format:
+#{"A": "Alfa", "B": "Bravo"}
+data = pandas.read_csv("nato_phonetic_alphabet.csv")
+# iterira se kroz DataFrame i kreira se dictionary u formatu: {"A": "Alfa", "B": "Bravo"}
+alphabet = {row.letter:row.code for index, row in data.iterrows()}
+# {'A': 'Alfa', 'B': 'Bravo', 'C': 'Charlie', 'D': 'Delta', 'E': 'Echo', 'F': 'Foxtrot', 'G': 'Golf', 'H': 'Hotel', 'I': 'India', 'J': 'Juliet', 'K': 'Kilo', 'L': 'Lima', 'M': 'Mike', 'N': 'November', 'O': 'Oscar', 'P': 'Papa', 'Q': 'Quebec', 'R': 'Romeo', 'S': 'Sierra', 'T': 'Tango', 'U': 'Uniform', 'V': 'Victor', 'W': 'Whiskey', 'X': 'X-ray', 'Y': 'Yankee', 'Z': 'Zulu'}
+print(alphabet)
+
+#TODO 2. Create a list of the phonetic code words from a word that the user inputs.
+name = input("Please enter your name: ").upper()
+name_alphabet = [alphabet[letter] for letter in name]
+# Marko => ['Mike', 'Alfa', 'Romeo', 'Kilo', 'Oscar']
+print(name_alphabet)
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------ Tkinker, *args, **kwargs -------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------
+Tkinker je modul koji je ugradjen u python i koji sluzi za kreiranje grafickog interfejsa (GUI).
+Tkinker se cita ka T-K-inter (ti kej inter ili ti kej inter module).
+
+Dokumentacija: https://docs.python.org/3/library/tkinter.html#the-packer
+
+import tkinter
+
+# kreira se window tako sto se inicijalizuje objekat klase Tk i dobijamo prozor
+# Tk klasa je predefinisana u tkinter modulu
+window = tkinter.Tk()
+window.title("Mt Firsy GUI program")
+# korisnik moze da povecava i smanjuje prozor ali je potrebno da setujemo minimalnu velicinu
+window.minsize(width=500, height=300)
+
+# Label - za kreiranje label-a koristi se klasa Label iz tkinter modula
+my_label = tkinter.Label(text="I am a Label", font=("Arial", 24, "bold"))
+# sa pack() dodaje label u prozor - pakuje ga u prozor
+my_label.pack()
+
+# kada se inicijalizuje objekat Tk on prolazi dalje kroz kod i proverava da li ima nekih instrukcija. Ako nema prozor ce se sam zatvoriti. Da se to ne bi dogodilo poziva se metoda mainloop().
+# u mainloop() je while petlja koja se stalno vrti i u kojoj s epoziva listener metoda koja prati da li ima nekih promena u prozoru. Ova petlja bi bila: while True: listening()
+# window.mainloop() se poziva na kraju koda
+window.mainloop()
+
+
+
+--------------------------- *args ---------------------------
+*args moze da se koristi kada definisemo funkciju tako da moze da joj se prosledi bilo koji broj argumenata.
+def add(*args):
+	for n in args:
+		print(n)
+Ovako u funkciju moze da se prosledi bilo koji broj elemenata i funkcija ce ih sve obraditi. Moze da se prosledi add(2), add(2, 5) ili add(2, 8, 7, 7, 8, 9) i funkcija ce raditi.
+*args je po konvenciji i ne mora da bude tako ali * je obavezan.
+Kada se *args prosledi u funkciju on je tuple i kroz njega moze da se iterira.
+
+--------------------------- *kwargs ---------------------------
+**kwargs - key word arguments
+**kwargs - nam omogucava da definisemo funkciju u koju moze biti prosledjen proizvoljan broj parametara i oni s eprosledjuju u key:value parovima. Ono sto se prosledi u funkciju je dictionary.
+
+
+def calculate(num, **kwargs):
+    # print(kwargs) # {'add': 3, 'multiply': 5}
+    result = 0
+    for key, value in kwargs.items():
+        if key == "add":
+            result += num + value
+            break
+        if key == "multiply":
+            result += num * value
+            break
+    return result
+
+# kada se pozove funkcija ona ce prolaziti kroz parametre i kada naice na ime parametra add sabrace 5 i 3 a kada naideje na multiply pomnozice 5 i 5
+print(calculate(5, add=3, multiply=5))
+
+
+---------------------- Tkinker Layout Managers ----------------------
+Tkinker Layout Managers odredjuju kako ce se pozicionirati elementi u prozoru. Postoje 3 managera u tjinteru: pack, place i grid.
+Ako kreiamo widget (element) a ne devinisemo pack, place ili grid onda se element nece ni prikazati.
+
+Pack ih slaze jedan do drugog po (njemu) logicnom redosledu. Po defaultu krece da ih slaze od vrha i po defaultu ih sve redja u sredinu. Nije dobar za redjanje elemenata.
+Place se koristi za pozicioniranje elemenata po x, y koordinatama. x i y se mere od gornjeg levog ugla.
+Grid se koristi tako sto se prozor deli u kolone i redove.
+
+U istom prozoru ne mogu da se koriste razliciti layout manageri. Mora da se odabere izmedju pack, place ili grid.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
